@@ -1,5 +1,5 @@
 package io.adam.boot;
-
+/*
 import javax.persistence.*;
 
 @Entity
@@ -53,3 +53,4 @@ public class Book {
                 '}';
     }
 }
+*/
