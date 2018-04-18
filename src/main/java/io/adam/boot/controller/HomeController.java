@@ -2,6 +2,7 @@ package io.adam.boot.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.adam.boot.model.Stock;
 import io.adam.boot.model.StockCollection;
+import io.adam.boot.repository.StockRepository;
 
 @RestController
 public class HomeController {
 
+	@Autowired
+	private StockRepository stockRepository;
+	
 @RequestMapping(value = "/c/{param}", method=RequestMethod.GET)
 	public ResponseEntity<Stock> get(@PathVariable("param") Long param) {
 	StockCollection stockCollection = new StockCollection();
@@ -28,8 +33,10 @@ public ResponseEntity<Stock> postStock(@RequestBody Stock stock) {
 	Stock stock1 = new Stock();
 	stock1.setName(stock.getName());
 	stock1.setPrice(stock.getPrice());	
+	stock1.setID(stock.getID());
 	StockCollection stockCollection = new StockCollection();
 	stockCollection.setStock(stock1);	
+	stockRepository.save(stock1);
 	return new ResponseEntity<Stock>(stockCollection.getStock((Long)stockCollection.getListSize()), HttpStatus.OK);
 }
 
@@ -57,6 +64,7 @@ public String getRequest(@PathVariable("name") String name) {
 	
  return "!!Wprowadzono parametr w URL dla GET: " + stock.toString();
 }
+
 @RequestMapping(value = "/newStock/{name}", method = RequestMethod.POST)
 public String postRequest(@PathVariable("name") String name) {
 	

@@ -11,29 +11,31 @@ import javax.persistence.Table;
 @Table(name = "tbl_book")
 public class Stock {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-	private Long ID;
-    
-    @Column(name = "NAME")
-	private String name;
-    
-    @Column(name = "PRICE")
+
+	private Long id; 
+	private String name;   
 	private int price;	
-
-//	public Stock(String name) {
-//			this.name = name;
-//		}
+    
+    public Stock() {}
+    
+    public Stock(String name, int price) {
+    	this.name = name;
+    	this.price = price;
+    	this.id = (long) 1;
+    }
 	
+    @Id
+    @GeneratedValue//(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true)
 	public Long getID() {
-		return ID;
+		return id;
 	}
 
-	public void setID(Long iD) {
-		ID = iD;
+	public void setID(Long id) {
+		this.id = id;
 	}
 	
+    @Column(name = "price")
 	public int getPrice() {
 	return price;
 	}
@@ -42,6 +44,7 @@ public class Stock {
 		this.price = price;
 	}
 
+    @Column(name = "name")
 	public String getName() {
 		return name;
 	}
