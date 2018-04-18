@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.*;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tbl_book")
@@ -25,7 +26,8 @@ public class Stock {
     }
 	
     @Id
-    @GeneratedValue//(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     @Column(name = "id", unique = true)
 	public Long getID() {
 		return id;
